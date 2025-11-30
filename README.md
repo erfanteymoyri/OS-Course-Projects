@@ -150,20 +150,43 @@ This assignment covers concurrency implementation, advanced container isolation,
 
 ---
 
-### :wrench: Tools Used
+### :wrench: Tools & Technologies
 
-* **xv6 (RISC-V/x86):** Educational Operating System.
-* **QEMU:** Emulator for running xv6 and testing kernels.
-* **Docker:** Platform for developing, shipping, and running applications in containers.
-* **GCC/Make:** Build tools.
-* **Linux Kernel Source:** Mainline kernel source code.
+The project utilizes a wide range of system programming tools and technologies:
+
+* **Operating Systems & Kernel:**
+    * **xv6 (RISC-V/x86):** MIT's educational OS used for kernel hacking, syscall implementation, and scheduler modification.
+    * **Linux Kernel (v6.1+):** Source code compilation, Loadable Kernel Modules (LKM), and modifying `task_struct`.
+    * **Alpine Linux:** Lightweight distribution used as a base for container experiments.
+
+* **Virtualization & Containers:**
+    * **QEMU:** Machine emulator for running xv6 and testing custom kernels.
+    * **Docker:** Used for analyzing container lifecycles and image layers.
+    * **Linux Namespaces:** Manual implementation of containers (PID, UTS, Mount namespaces) using `unshare` and `clone`.
+
+* **Debugging & Performance Analysis:**
+    * **GDB:** Advanced debugging, inspecting registers, and kernel traps.
+    * **Sysbench:** Benchmarking tool for measuring CPU, Memory, and I/O overhead.
+    * **perf & FlameGraph:** System profiling and stack trace visualization for hot-path optimization.
+    * **Tracy:** Real-time application profiling.
+
+* **Build & Development:**
+    * **C / C++:** Primary languages for system programming.
+    * **Make:** Build automation for kernel modules and user programs.
 
 ---
 
 ### :rocket: How to Use
 
-1.  Clone the repository:
-    ```bash
-    git clone [https://github.com/YourUsername/Your-Repo-Name.git](https://github.com/YourUsername/Your-Repo-Name.git)
-    ```
-2.  Navigate to the specific assignment folder (e.g., `Assignment-1`) to view the source codes and reports.
+To run the exercises and reproduce the results, follow the steps below. The project is tested on **Ubuntu/Debian** environments.
+
+#### 1. Prerequisites
+Ensure you have the necessary tools installed (QEMU, Docker, Build Essentials, GDB):
+
+```bash
+# Install build tools and QEMU
+sudo apt-get update
+sudo apt-get install build-essential gdb-multiarch qemu-system-riscv64 qemu-system-x86
+
+# Install Docker (if not installed)
+sudo apt-get install docker.io
