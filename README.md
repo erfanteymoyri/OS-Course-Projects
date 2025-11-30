@@ -18,8 +18,8 @@ Each assignment is structured into three distinct parts to cover different aspec
 
 ### 👨‍💻 Authors
 
-* **[Your Name]**
-* **[Partner's Name if applicable]**
+* **Erfan Teymouri**
+* **Seyed Ahmad MossaviAwal**
 
 ---
 
