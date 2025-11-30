@@ -59,6 +59,38 @@ This assignment serves as an entry point to the three main pillars of the course
 
 ---
 
+#### :two: Assignment 2: Debugging, Benchmarking & Profiling
+
+This assignment focuses on kernel introspection, performance comparison across environments, and code optimization techniques.
+
+**Part A: xv6 - Debugging & System Calls**
+* **Goal:** Mastering kernel debugging with GDB and extending OS functionality.
+* **Tasks:**
+    * **Advanced GDB:** Using `backtrace`, `layout src`, and inspecting the `trapframe` (specifically register `a7` for syscall numbers) and `sstatus` to understand user/kernel mode transitions.
+    * **New System Call (`top`):** Implementing a custom system call to list active processes.
+        * **Functionality:** Prints `PID`, `Command Name`, and `Memory Usage` of current processes.
+        * *(Optional)* Implementation of `top -p <PID>` to filter by process ID.
+
+**Part B: Infrastructure - Benchmarking & Isolation**
+* **Goal:** Analyzing performance overhead of virtualization and containerization.
+* **Sysbench Analysis:**
+    * Running stress tests: `cpu` (prime numbers), `memory` (random access), and `fileio`.
+    * **Comparison Matrix:** Bare Metal vs. Virtual Machine (Linux) vs. Docker Container.
+    * **Metrics:** Analyzing P99 Latency, Average Latency, and Throughput to understand the overhead of each layer.
+* **Fork Bomb:**
+    * Creating a recursive process spawner to exhaust system resources (PIDs).
+    * Observing system behavior (freeze/crash) and analyzing mitigation strategies.
+
+**Part C: Performance Analysis Tools**
+* **Goal:** identifying bottlenecks and optimizing code using Linux profiling tools.
+* **Tasks:**
+    * **Profiling with `perf`:** Analyzing a CPU-intensive C/C++ program.
+    * **FlameGraphs:** Generating visual stack traces to identify "hot" functions consuming the most CPU time.
+    * **Optimization:** Refactoring the inefficient code based on FlameGraph data and measuring the speedup.
+    * **Tracy:** Utilizing the `tracy` profiler for real-time application analysis.
+
+---
+
 ### :wrench: Tools Used
 
 * **xv6 (RISC-V/x86):** Educational Operating System.
