@@ -91,6 +91,65 @@ This assignment focuses on kernel introspection, performance comparison across e
 
 ---
 
+#### :three: Assignment 3: Process Management & System Call Internals
+
+This assignment deepens the understanding of process tracking, namespace isolation, and the mechanics of system calls.
+
+**Part A: xv6 - Process Tree Visualization**
+* **Goal:** Extending the `top` command to display a hierarchical process tree.
+* **Tasks:**
+    * **New System Call (`next_process`):** Iterates through the process table to retrieve process details (PID, Parent PID, Heap Size, State, Name).
+    * **User Program (`top -t`):** Using the new syscall to traverse and visualize the parent-child relationships using DFS/BFS.
+    * **State Handling:** Correctly displaying `Running`, `Runnable`, `Sleeping`, and `Zombie` states.
+    * **Testing:** Creating a complex process generation program (using `fork`/`exec`) to verify the tree structure.
+
+**Part B: Docker - PID Namespaces (Zocker)**
+* **Goal:** Implementing a minimal container runtime ("Zocker") to understand PID isolation.
+* **Key Concepts:**
+    * **Namespaces:** Using `unshare(2)` and `clone(2)` with `CLONE_NEWPID`.
+    * **Process Isolation:** Ensuring the containerized process sees itself as PID 1, while having a different PID on the host.
+    * **Capabilities:** Handling permissions (`CAP_SYS_ADMIN`) and `setcap` to run without `sudo` (optional).
+
+**Part C: Linux Kernel - PCB & System Call Timing**
+* **Goal:** Modifying the Linux Process Control Block (PCB) and analyzing system call overhead.
+* **Tasks:**
+    * **PCB Modification:** Researching `task_struct`, adding custom fields, and writing syscalls to read/write these fields.
+    * **Timing Analysis:**
+        * Implementing a high-precision timing mechanism inside the kernel.
+        * Measuring the exact time spent in **User-to-Kernel** and **Kernel-to-User** transitions.
+        * **Benchmarking:** Analyzing standard syscalls (`read`, `write`, `getpid`) vs. custom syscalls.
+
+---
+
+#### :four: Assignment 4: Threads, Namespaces & File Systems
+
+This assignment covers concurrency implementation, advanced container isolation, and file system architecture.
+
+**Part A: xv6 - User-Level Threads (Green Threads)**
+* **Goal:** Implementing a cooperative threading library in user space without kernel awareness.
+* **Tasks:**
+    * **Thread Structure:** Defining `struct thread` to hold the stack, state (`RUNNING`, `RUNNABLE`, `FREE`), and context.
+    * **Context Switching:** Implementing the mechanism to save/restore CPU registers (`ra`, `sp`, `s0-s11`) to switch between threads.
+    * **Scheduling:** Writing a Round-Robin scheduler (`thread_schedule`) and a yield function (`thread_yield`) to switch execution between `thread_a`, `thread_b`, and `thread_c`.
+
+**Part B: Docker - Advanced Isolation (Mounts & UTS)**
+* **Goal:** Fixing namespace leaks in the custom "Zocker" runtime.
+* **Key Challenges:**
+    * **PID Namespace & `/proc`:** Correctly mounting a fresh `/proc` filesystem inside the container so `ps` only shows containerized processes.
+    * **Mount Propagation:** Using `mount --make-rprivate` to prevent container mounts from affecting the host system.
+    * **UTS Namespace:** Isolating the hostname using `sethostname` so the container has its own identity.
+
+**Part C: File Systems - User-Space FS (FUSE Concepts)**
+* **Goal:** Designing and implementing a simple file system that resides in a single file (`filesys.db`), mimicking FUSE architecture.
+* **Architecture:**
+    * **Virtual Disk:** Using a binary file (`filesys.db`) as the storage medium.
+    * **Superblock:** Validating the file system using a Magic Number (`0xDEADBEEF`).
+    * **Metadata:** Managing files using a Linked List structure (Name, Type, Permissions, Data pointers).
+* **CLI Implementation:**
+    * Developing a command-line tool to perform operations: `open`, `write`, `read`, `shrink`, `rm`, and `get_fs_stats` directly on the virtual disk file.
+
+---
+
 ### :wrench: Tools Used
 
 * **xv6 (RISC-V/x86):** Educational Operating System.
